@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bio-Data – Sunil Rameshbhai Mori</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <style>
+    :root {
+      --gold: #c8a96e;
+      --gold-light: #e8cfa0;
+      --gold-dark: #9a7a42;
+      --navy: #0d1b2a;
+      --navy-mid: #162035;
+      --navy-light: #1e2f4d;
+      --cream: #fdf8f0;
+      --text-dark: #1a1a2e;
+      --white: #ffffff;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0d1b2a 0%, #162035 40%, #1e2f4d 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px 20px;
+    }
+    .btn-pdf {
+      margin-bottom: 24px;
+      padding: 14px 40px;
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light));
+      color: var(--navy);
+      font-family: 'Poppins', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      box-shadow: 0 8px 30px rgba(200,169,110,0.4);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .btn-pdf:hover { transform: translateY(-3px); box-shadow: 0 14px 40px rgba(200,169,110,0.6); }
+    #biodata {
+      width: 794px;
+      background: var(--cream);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+    }
+    .header {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 60%, #253d60 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 260px; height: 260px;
+      border-radius: 50%;
+      border: 40px solid rgba(200,169,110,0.12);
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+    .header-bar {
+      width: 8px;
+      background: linear-gradient(180deg, var(--gold-light), var(--gold-dark));
+      align-self: stretch;
+      min-height: 220px;
+      flex-shrink: 0;
+    }
+    .header-text { flex: 1; padding: 40px 32px; }
+    .bio-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 5px;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .header-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 38px;
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+    .header-name span { color: var(--gold); }
+    .header-tagline {
+      font-size: 13px;
+      color: rgba(255,255,255,0.6);
+      font-weight: 400;
+      margin-bottom: 20px;
+    }
+    .header-badges { display: flex; gap: 10px; flex-wrap: wrap; }
+    .badge {
+      background: rgba(200,169,110,0.15);
+      border: 1px solid rgba(200,169,110,0.3);
+      color: var(--gold-light);
+      font-size: 11px;
+      font-weight: 500;
+      padding: 5px 14px;
+      border-radius: 30px;
+    }
+    .header-photo {
+      width: 220px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 30px 36px 30px 0;
+    }
+    .photo-frame {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 4px solid var(--gold);
+      box-shadow: 0 0 0 8px rgba(200,169,110,0.15), 0 16px 40px rgba(0,0,0,0.4);
+      overflow: hidden;
+      background: var(--navy-mid);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      color: rgba(200,169,110,0.5);
+      font-size: 10px;
+      letter-spacing: 0.5px;
+      gap: 6px;
+    }
+    .gold-divider {
+      height: 4px;
+      background: linear-gradient(90deg, var(--gold-dark), var(--gold-light), var(--gold-dark));
+    }
+    .body-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    .section-card {
+      padding: 28px 30px;
+      border-bottom: 1px solid rgba(0,0,0,0.07);
+    }
+    .section-card:nth-child(odd) { border-right: 1px solid rgba(0,0,0,0.07); }
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .section-icon {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, var(--navy), var(--navy-light));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .section-icon svg { width: 18px; height: 18px; stroke: var(--gold); fill: none; stroke-width: 2; }
+    .section-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--navy);
+    }
+    .section-line { flex: 1; height: 1px; background: linear-gradient(90deg, var(--gold), transparent); }
+    .info-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 13px; }
+    .info-row:last-child { margin-bottom: 0; }
+    .info-dot {
+      width: 7px; height: 7px;
+      background: var(--gold);
+      border-radius: 50%;
+      margin-top: 7px;
+      flex-shrink: 0;
+    }
+    .info-content { flex: 1; }
+    .info-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+      margin-bottom: 1px;
+    }
+    .info-value { font-size: 13.5px; font-weight: 500; color: var(--text-dark); line-height: 1.4; }
+    .tag { color: var(--gold-dark); font-size: 11px; }
+    .hobbies-grid { display: flex; flex-wrap: wrap; gap: 10px; }
+    .hobby-chip {
+      background: linear-gradient(135deg, var(--navy), var(--navy-light));
+      color: var(--gold-light);
+      font-size: 12px;
+      font-weight: 500;
+      padding: 8px 18px;
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .footer {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+      padding: 28px 36px;
+    }
+    .footer-title {
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gold);
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .footer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .contact-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(200,169,110,0.2);
+      border-radius: 12px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .contact-icon {
+      width: 42px; height: 42px;
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .contact-icon svg { width: 20px; height: 20px; stroke: var(--navy); fill: none; stroke-width: 2.5; }
+    .contact-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 3px;
+    }
+    .contact-value { font-size: 14px; font-weight: 600; color: var(--white); }
+    .footer-bottom {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 10px;
+      color: rgba(255,255,255,0.25);
+      letter-spacing: 1px;
+    }
+    @page {
+      margin: 0;
+      size: 794px auto;
+    }
+    @media print {
+      body { background: none; padding: 0; margin: 0; }
+      .btn-pdf { display: none; }
+      #biodata { box-shadow: none; border-radius: 0; width: 100%; page-break-inside: avoid; }
+      * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+
+  <button class="btn-pdf" onclick="downloadPDF()" id="pdf-btn">
+    ⬇ Download PDF
+  </button>
+
+  <div id="biodata">
+
+    <div class="header">
+      <div class="header-inner">
+        <div class="header-bar"></div>
+        <div class="header-text">
+          <p class="bio-label">✦ Bio Data ✦</p>
+          <h1 class="header-name">Sunil<br><span>Rameshbhai Mori</span></h1>
+          <p class="header-tagline">Software Engineer · Ahmedabad, Gujarat</p>
+          <div class="header-badges">
+            <span class="badge">🎓 B.C.A Graduate</span>
+            <span class="badge">💻 Tech Professional</span>
+            <span class="badge">📍 Botad</span>
+          </div>
+        </div>
+        <div class="header-photo">
+          <div class="photo-frame">
+            <img src="sunil_photo.jpg" alt="Sunil Rameshbhai Mori" style="width:100%;height:100%;object-fit:cover;object-position:center top;" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="gold-divider"></div>
+
+    <div class="body-grid">
+
+      <div class="section-card">
+        <div class="section-title">
+          <div class="section-icon">
+            <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <span class="section-heading">Personal Details</span>
+          <div class="section-line"></div>
+        </div>
+        <div class="info-row">
+          <div class="info-dot"></div>
+          <div class="info-content">
+            <div class="info-label">Full Name</div>
+            <div class="info-value">Sunil Rameshbhai Mori</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-dot"></div>
+          <div class="info-content">
+            <div class="info-label">Date of Birth</div>
+            <div class="info-value">03 December 2000</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-dot"></div>
+          <div class="info-content">
+            <div class="info-label">Age</div>
+            <div class="info-value">25 Years</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-dot"></div>
+          <div class="info-content">
+            <div class="info-label">Height</div>
+            <div class="info-value">5 Feet 8 Inches</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-dot"></div>
+          <div class="info-content">
+            <div class="info-label">Native Location</div>
+            <div class="info-value">Shankar para, Khas Road, Botad</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <div class="section-title">
+          <div class="section-icon">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+          <span class="section-heading">Family Details</span>
+          <div class="section-line"></div>
+        </div>
+        <div class="info-row">
+          <div class="info-dot"></div>
+          <div class="info-content">
+            <div class="info-label">Father's Name</div>
+            <div class="info-value">Rameshbhai Bhikhubhai Mori</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-dot"></div>
+          <div class="info-content">
+            <div class="info-label">Mother's Name</div>
+            <div class="info-value">Ranjanben Rameshbhai Mori</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-dot"></div>
+          <div class="info-content">
+            <div class="info-label">Elder Brother</div>
+            <div class="info-value">Hitenbhai Mori <span class="tag">(Married)</span></div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-dot"></div>
+          <div class="info-content">
+            <div class="info-label">Younger Brother</div>
+            <div class="info-value">Amitbhai Mori <span class="tag">(Unmarried)</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <div class="section-title">
+          <div class="section-icon">
+            <svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+          </div>
+          <span class="section-heading">Education &amp; Career</span>
+          <div class="section-line"></div>
+        </div>
+        <div class="info-row">
+          <div class="info-dot"></div>
+          <div class="info-content">
+            <div class="info-label">Qualification</div>
+            <div class="info-value">B.C.A (Bachelor of Computer Applications)</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-dot"></div>
+          <div class="info-content">
+            <div class="info-label">Profession</div>
+            <div class="info-value">Software Engineer</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-dot"></div>
+          <div class="info-content">
+            <div class="info-label">Work Location</div>
+            <div class="info-value">Ahmedabad, Gujarat</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-dot"></div>
+          <div class="info-content">
+            <div class="info-label">Monthly Income</div>
+            <div class="info-value">&#8377; 62,000 / Month</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <div class="section-title">
+          <div class="section-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <span class="section-heading">Hobbies &amp; Interests</span>
+          <div class="section-line"></div>
+        </div>
+        <div class="hobbies-grid">
+          <div class="hobby-chip">&#9992; Travelling</div>
+          <div class="hobby-chip">&#128187; Technology</div>
+          <div class="hobby-chip">&#127968; Family Time</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer">
+      <p class="footer-title">&#10022; Contact Details &#10022;</p>
+      <div class="footer-grid">
+        <div class="contact-card">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <div>
+            <div class="contact-label">Contact Person</div>
+            <div class="contact-value">Rameshbhai Mori</div>
+          </div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .84h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.08A16 16 0 0015.92 17.1l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          </div>
+          <div>
+            <div class="contact-label">Phone Number</div>
+            <div class="contact-value">+91 76982 84283</div>
+          </div>
+        </div>
+      </div>
+      <p class="footer-bottom">&#10022; &nbsp; Prepared with care &nbsp; &#10022;</p>
+    </div>
+
+  </div>
+
+  <script>
+    function downloadPDF() {
+      var btn = document.getElementById('pdf-btn');
+      btn.textContent = 'Generating PDF...';
+      btn.disabled = true;
+      var element = document.getElementById('biodata');
+      var opt = {
+        margin: 0,
+        filename: 'Sunil_Mori_BioData.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true },
+        jsPDF: { unit: 'px', format: [794, element.offsetHeight + 10], orientation: 'portrait' }
+      };
+      html2pdf().set(opt).from(element).save().then(function() {
+        btn.textContent = 'Download PDF';
+        btn.disabled = false;
+      });
+    }
+  </script>
+
+</body>
+</html>
